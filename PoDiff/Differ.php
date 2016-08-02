@@ -60,18 +60,20 @@ class Differ
                 }
 
                 if ($changed) {
-                    $ret['changed'][] = array(
+                    $ret['changed'][$key] = array(
                         'old' => $oldEntry,
                         'new' => $newEntries[$key]
                     );
                 }
                 unset($newEntries[$key]);
             } else {
-                $ret['removed'][] = $oldEntry;
+                $ret['removed'][$key] = $oldEntry;
             }
         }
         unset($newEntries['']);
-        $ret['added'] = array_values($newEntries);
+        foreach ($newEntries as $key => $newEntry) {
+            $ret['added'][$key] = $newEntry;
+        }
         return $ret;
     }
 }
