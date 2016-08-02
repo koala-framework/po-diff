@@ -1,0 +1,19 @@
+#!/usr/bin/env php
+<?php
+$files = array(
+    __DIR__ . '/../vendor/autoload.php',
+    __DIR__ . '/../../../autoload.php'
+);
+foreach ($files as $file) {
+    if (file_exists($file)) {
+        require $file;
+        break;
+    }
+}
+
+use Symfony\Component\Console\Application;
+use PoDiff\DiffCommand;
+
+$application = new Application('po-diff', '0.1');
+$application->add(new DiffCommand);
+$application->run();
